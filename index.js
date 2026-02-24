@@ -32,7 +32,7 @@ async function startBattlePhaseOne() {
   let charactersList = await getCharecters(charactersUrl);
   if (!charactersList) return;
 
-  function getRandomPlayers(arr) {
+  function getRandom(arr) {
     return [...arr].sort(() => 0.5 - Math.random());
   }
 
@@ -65,7 +65,7 @@ async function startBattlePhaseOne() {
         starships: details.starships.map((starship) =>
           starship.split("/").filter(Boolean).pop(),
         ),
-        power: (details.mass) * (details.height),
+        power: details.mass * details.height,
       };
       return updateHero;
     } catch (error) {
@@ -73,8 +73,8 @@ async function startBattlePhaseOne() {
     }
   }
 
-  let teamOnePlayers = getRandomPlayers(charactersList).slice(0, 3);
-  let teamTwoPlayers = getRandomPlayers(charactersList).slice(3, 6);
+  let teamOnePlayers = getRandom(charactersList).slice(0, 3);
+  let teamTwoPlayers = getRandom(charactersList).slice(3, 6);
 
   async function fillTeamsInfo() {
     teamOnePlayers = await Promise.all(
@@ -91,14 +91,54 @@ async function startBattlePhaseOne() {
       }),
     );
 
-    console.log("Team 1 Ready:", teamOnePlayers);
-    console.log("Team 2 Ready:", teamTwoPlayers);
+    window.alert(
+      `Your team is ready: ${teamOnePlayers.map((p) => p.name).join(", ")}`,
+    );
+    window.alert(
+      `Enemy team is ready: ${teamTwoPlayers.map((p) => p.name).join(", ")}`,
+    );
   }
   fillTeamsInfo();
-}
 
+  async function getPlanet() {
+    const planet = getRandom(listOfPlanets).slice(0, 1);
+
+    let bodyBackground = document.querySelector("body.battle-page");
+    bodyBackground.style.backgroundImage = `url("./images/backGround/${planet}.png")`;
+
+    let choosePlanetFlex = document.querySelector(".planet-card");
+    let planetCard = document.createElement("img");
+    planetCard.src = `./images/planet/${planet}.png`;
+    planetCard.alt = "Planet card image";
+    planetCard.classList.add("card-img");
+    choosePlanetFlex.append(planetCard);
+
+    console.log(`Battle planet is: ${planet}`);
+
+    try {
+      const response = await fetch(`${planetsUrl}${planet}`);
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      const data = await response.json();
+      const details = data.result.properties;
+
+      const updatePlanet = {
+        id: planet,
+        name: details.name,
+        description: details.description,
+      };
+      window.alert(
+        `The battle will take place on the planet: ${updatePlanet.name}`,
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  getPlanet();
+}
 
 const chooseTeamButton = document.querySelector("button.choose-team");
 chooseTeamButton.addEventListener("click", startBattlePhaseOne);
 
-// 
+//

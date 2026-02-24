@@ -3,7 +3,7 @@ html {
 }
 
 * {
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   box-sizing: border-box;
 }
 
@@ -25,7 +25,10 @@ h2 {
   font-size: clamp(1.75rem, 3.5vw, 3.5rem);
 }
 h3 {
-  font-size: clamp(1.25rem, 2.5vw, 2.5rem);
+  font-size: clamp(1.55rem, 2.5vw, 2.5rem);
+}
+h3 {
+  font-size: clamp(1.35rem, 2.2vw, 2.2rem);
 }
 
 /* **
@@ -119,9 +122,8 @@ button.start-button:hover a {
 ************************************** */
 
 body.battle-page {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./images/backGround/chooseYourHeroScreen.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  /* url("./images/backGround/chooseYourHeroScreen.png"); */
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
@@ -182,12 +184,17 @@ a.close-window:hover {
   padding: 0.5rem;
 }
 
-.team1-block h4,
-.team2-block h4 {
+.team1-block h3,
+.team2-block h3 {
   justify-self: center;
   align-self: center;
   flex: 1;
   margin: 0;
+  /* background-color: #9e9c9c; */
+  -webkit-text-stroke: 0.5px black;
+  border-radius: 7px;
+  padding: 0.5rem;
+  align-self: flex-start;
 }
 
 .hero-block {
@@ -225,6 +232,21 @@ button.choose-team:focus-visible {
     0 0 40px rgba(0, 200, 255, 0.2);
 }
 
+.choose-team-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose-team-flex h4 {
+  margin: 0;
+  text-align: center;
+  -webkit-text-stroke: 0.5px black;
+  font-size: clamp(2rem, 2.4rem, 2.4rem);
+}
+
 button.choose-team svg {
   max-width: 5rem;
   max-height: 5rem;
@@ -246,7 +268,6 @@ div.player-card {
   width: 100%;
   height: 100%;
   border: 1px solid gray;
-  border-radius: 5px;
   overflow: hidden;
   border-radius: 7px;
   transition:
@@ -274,11 +295,54 @@ div.player-card:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  align-self: center;
 }
 
 .choose-planet {
   grid-row: 3;
   grid-column: 1 / span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose-planet h4 {
+  margin: 0;
+  /* background-color: #9e9c9c; */
+  border-radius: 7px;
+  padding: 0.5rem;
+  -webkit-text-stroke: 0.5px black;
+}
+
+.planet-card {
+  flex: 1;
+  width: 20rem;
+  height: 20rem;
+  border: 1px solid gray;
+  overflow: hidden;
+  justify-content: center;
+  align-content: center;
+  border-radius: 7px;
+  transition:
+    box-shadow 0.8s ease,
+    transform 1s ease;
+}
+
+.planet-card:hover {
+  box-shadow:
+    0 0 10px rgba(0, 200, 255, 0.6),
+    0 0 20px rgba(0, 200, 255, 0.4),
+    0 0 40px rgba(0, 200, 255, 0.2);
+  transform: scale(1.4);
+}
+
+.planet-card:focus-visible {
+  box-shadow:
+    0 0 10px rgba(0, 200, 255, 0.6),
+    0 0 20px rgba(0, 200, 255, 0.4),
+    0 0 40px rgba(0, 200, 255, 0.2);
+  transform: scale(1.4);
 }
 
 .starship1 {
