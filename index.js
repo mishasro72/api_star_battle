@@ -28,7 +28,7 @@ async function getCharecters(url) {
   }
 }
 
-async function startBattle() {
+async function startBattlePhaseOne() {
   let charactersList = await getCharecters(charactersUrl);
   if (!charactersList) return;
 
@@ -97,4 +97,8 @@ async function startBattle() {
   fillTeamsInfo();
 }
 
-startBattle();
+
+const chooseTeamButton = document.querySelector("button.choose-team");
+chooseTeamButton.addEventListener("click", startBattlePhaseOne);
+
+// 
