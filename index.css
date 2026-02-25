@@ -31,9 +31,9 @@ h3 {
   font-size: clamp(1.35rem, 2.2vw, 2.2rem);
 }
 
-/* **
+/***
 *Main-page
-************************************** */
+***************************************/
 
 body.main-page {
   background-image:
@@ -46,7 +46,6 @@ body.main-page {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  /* color: #e6e6e6; */
   font-size: clamp(1.4rem, 1.4vw, 2rem);
   min-height: 100vh;
   margin: 0 auto;
@@ -117,13 +116,11 @@ button.start-button:hover a {
   color: #0b0b0b;
 }
 
-/* **
+/***
 *Battle-page
-************************************** */
+***************************************/
 
 body.battle-page {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-  /* url("./images/backGround/chooseYourHeroScreen.png"); */
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
@@ -132,7 +129,22 @@ body.battle-page {
   font-weight: 400;
   font-style: normal;
   font-size: clamp(1.4rem, 1.4vw, 2rem);
-  min-height: 100vh;
+  height: 100vh;
+}
+
+body.battle-page::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+h1 {
+  -webkit-text-stroke: 1px black;
 }
 
 a.close-window {
@@ -162,7 +174,7 @@ a.close-window:hover {
 .battle-page-layout {
   display: grid;
   grid-template-columns: 1fr 0.3fr 1fr;
-  grid-template-rows: 0.2fr 2fr 1fr 1fr 0.5fr;
+  grid-template-rows: 0fr 2fr 1fr 2fr;
   gap: 2rem;
   padding: 2rem;
   margin: 1rem;
@@ -175,6 +187,17 @@ a.close-window:hover {
   text-align: center;
 }
 
+.score-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.team1-block {
+  position: relative;
+  transition: all 0.9s ease;
+}
+
 .team1-block {
   grid-column: 1;
   grid-row: 2;
@@ -184,13 +207,39 @@ a.close-window:hover {
   padding: 0.5rem;
 }
 
+.win-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffe81f;
+  font-family: "Oswald", sans-serif;
+  font-size: 5rem;
+  font-weight: 900;
+  padding: 1rem 3rem;
+  border: 5px solid #ffe81f;
+  border-radius: 10px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-shadow: 0 0 15px rgba(255, 232, 31, 0.7);
+}
+
+.team-block.winner .win-overlay {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.team-block.winner {
+  box-shadow: 0 0 50px rgba(255, 232, 31, 0.5);
+  transform: scale(1.02);
+}
+
 .team1-block h3,
 .team2-block h3 {
-  justify-self: center;
-  align-self: center;
   flex: 1;
   margin: 0;
-  /* background-color: #9e9c9c; */
   -webkit-text-stroke: 0.5px black;
   border-radius: 7px;
   padding: 0.5rem;
@@ -240,7 +289,7 @@ button.choose-team:focus-visible {
   align-items: center;
 }
 
-.choose-team-flex h4 {
+.choose-team-button-text {
   margin: 0;
   text-align: center;
   -webkit-text-stroke: 0.5px black;
@@ -307,9 +356,8 @@ div.player-card:focus-visible {
   align-items: center;
 }
 
-.choose-planet h4 {
+.choose-planet h3 {
   margin: 0;
-  /* background-color: #9e9c9c; */
   border-radius: 7px;
   padding: 0.5rem;
   -webkit-text-stroke: 0.5px black;
@@ -345,14 +393,81 @@ div.player-card:focus-visible {
   transform: scale(1.4);
 }
 
-.starship1 {
-  grid-row: 4;
-  grid-column: 1;
+.choose-starship-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.starship2 {
+.choose-starship-button-text {
+  margin: 0;
+  text-align: center;
+  -webkit-text-stroke: 0.5px black;
+  font-size: clamp(2rem, 2.4rem, 2.4rem);
+}
+
+.starshipOne-flex {
+  grid-row: 4;
+  grid-column: 1;
+  width: 30rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  justify-self: center;
+}
+
+.starshipOne-flex h3,
+.starshipTwo-flex h3 {
+  flex: 1;
+  margin: 0;
+  -webkit-text-stroke: 0.5px black;
+  border-radius: 7px;
+  padding: 0.5rem;
+  align-self: center;
+}
+
+div.starship-card {
+  flex: 4;
+  width: 100%;
+  height: 100%;
+  border: 1px solid gray;
+  overflow: hidden;
+  border-radius: 7px;
+  transition:
+    box-shadow 0.8s ease,
+    transform 1s ease;
+}
+
+div.starship-card:hover {
+  box-shadow:
+    0 0 10px rgba(0, 200, 255, 0.6),
+    0 0 20px rgba(0, 200, 255, 0.4),
+    0 0 40px rgba(0, 200, 255, 0.2);
+  transform: scale(1.4);
+}
+
+div.starship-card:focus-visible {
+  box-shadow:
+    0 0 10px rgba(0, 200, 255, 0.6),
+    0 0 20px rgba(0, 200, 255, 0.4),
+    0 0 40px rgba(0, 200, 255, 0.2);
+  transform: scale(1.4);
+}
+
+.starshipTwo-flex {
   grid-row: 4;
   grid-column: 3;
+  justify-self: center;
+  width: 30rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
 }
 
 button.choose-starship {
@@ -383,12 +498,18 @@ button.choose-starship svg {
   justify-self: center;
 }
 
-.score-team1 {
-  grid-row: 5;
-  grid-column: 1;
+.score-team-one {
+  flex: 1;
+  padding-left: 1rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.score-team2 {
-  grid-row: 5;
-  grid-column: 3;
+.score-team-two {
+  flex: 1;
+  padding-right: 1rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: flex-end;
 }
