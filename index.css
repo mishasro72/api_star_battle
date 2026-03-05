@@ -123,24 +123,24 @@ button.start-button:hover a {
 body.battle-page {
   background-size: cover;
   background-position: center;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: clamp(1.4rem, 1.4vw, 2rem);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body.battle-page::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 h1 {
@@ -178,7 +178,7 @@ a.close-window:hover {
   gap: 2rem;
   padding: 2rem;
   margin: 1rem;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .header-block {
@@ -215,7 +215,7 @@ a.close-window:hover {
   background-color: rgba(0, 0, 0, 0.7);
   color: #ffe81f;
   font-family: "Oswald", sans-serif;
-  font-size: 5rem;
+  font-size: clamp(1.2rem, 5vw, 5rem);
   font-weight: 900;
   padding: 1rem 3rem;
   border: 5px solid #ffe81f;
@@ -238,7 +238,6 @@ a.close-window:hover {
 
 .team1-block h3,
 .team2-block h3 {
-  flex: 1;
   margin: 0;
   -webkit-text-stroke: 0.5px black;
   border-radius: 7px;
@@ -415,6 +414,8 @@ div.player-card:focus-visible {
   height: 30rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
   justify-self: center;
@@ -422,16 +423,14 @@ div.player-card:focus-visible {
 
 .starshipOne-flex h3,
 .starshipTwo-flex h3 {
-  flex: 1;
   margin: 0;
   -webkit-text-stroke: 0.5px black;
   border-radius: 7px;
   padding: 0.5rem;
-  align-self: center;
+  align-content: center;
 }
 
 div.starship-card {
-  flex: 4;
   width: 100%;
   height: 100%;
   border: 1px solid gray;
@@ -461,13 +460,16 @@ div.starship-card:focus-visible {
 .starshipTwo-flex {
   grid-row: 4;
   grid-column: 3;
-  justify-self: center;
+
   width: 30rem;
   height: 30rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
+  justify-self: center;
 }
 
 button.choose-starship {
@@ -499,17 +501,66 @@ button.choose-starship svg {
 }
 
 .score-team-one {
-  flex: 1;
   padding-left: 1rem;
-  font-size: 3rem;
+  font-size: clamp(2rem, 3vw, 3.5rem);
   display: flex;
   justify-content: flex-start;
 }
 
 .score-team-two {
-  flex: 1;
   padding-right: 1rem;
-  font-size: 3rem;
+  font-size: clamp(2rem, 3vw, 3.5rem);
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 990px) {
+  div.battle-page-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    min-height: 100vh;
+  }
+
+  .win-overlay {
+    top: 60%;
+  }
+
+  .header-block {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .team1-block,
+  .team2-block {
+    grid-column: 1;
+    grid-row: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  button.choose-team {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .choose-planet {
+    grid-row: auto;
+    grid-column: 1;
+  }
+
+  .starshipOne-flex,
+  .starshipTwo-flex {
+    grid-row: auto;
+    grid-column: 1;
+    width: 100%;
+    height: auto;
+  }
+
+  div.starship-card {
+    width: 50%;
+    height: 100%;
+  }
 }

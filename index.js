@@ -230,18 +230,18 @@ async function startBattlePhaseScore() {
   let scoreTeamOne = document.querySelector(".score-team-one");
   let scoreTeamTwo = document.querySelector(".score-team-two");
 
-  scoreTeamOne.textContent = `Team One Score: ${gameState.teamOnePower}`;
-  scoreTeamTwo.textContent = `Team Two Score: ${gameState.teamTwoPower}`;
+  scoreTeamOne.textContent = `Your score: ${gameState.teamOnePower}`;
+  scoreTeamTwo.textContent = `Enemy score: ${gameState.teamTwoPower}`;
 
   const teamOneScore = gameState.teamOnePower;
   const teamTwoScore = gameState.teamTwoPower;
 
   if (teamOneScore > teamTwoScore) {
     teamOneElement.classList.add("winner");
-    window.alert("Team One Wins!");
+    window.alert("Your team Wins!");
   } else if (teamOneScore < teamTwoScore) {
     teamTwoElement.classList.add("winner");
-    window.alert("Team Two Wins!");
+    window.alert("Enemy team Wins!");
   } else {
     window.alert("It's a tie!");
   }
